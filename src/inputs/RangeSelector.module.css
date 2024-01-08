@@ -1,0 +1,29 @@
+/* RangeSelector.module.css */
+
+.ticks {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.ticks p {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 0px;
+  background: #aaa;
+}
+
+.input {
+  width: 15rem !important;
+  text-align: right;
+}
+
+.input input[type="text"] {
+  text-align: right;
+}
+
+.holder input {
+  align-items: center;
+}
