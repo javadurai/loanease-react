@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Form } from "react-bootstrap";
 import RangeHandler from "./RangeHandler";
 import styles from "./RangeSelector.module.css"; // Import the CSS module
+import { connect } from "react-redux";
+import { setInterestRate, calculatePayments } from "../actions";
 
-const InterestRateSelector = () => {
-  const [interestRate, setInterestRate] = useState(5);
-
+const InterestRateSelector = ({ interestRate, setInterestRate, calculatePayments, loanAmount, loanTerm, partPayment, loanStartDate, partPaymentInstallment }) => {
   useEffect(() => {
     RangeHandler.initRangeHandler(
       "interest_rate",
@@ -17,10 +17,13 @@ const InterestRateSelector = () => {
       (value) => value,
       setInterestRate
     );
-  }, []); // Empty dependency array to run this effect only once after initial render
+  }, [setInterestRate]); // Empty dependency array to run this effect only once after initial render
 
   const handleInterestRateChange = (event) => {
-    setInterestRate(event.target.value);
+    const newInterestRate = event.target.value;
+    setInterestRate(newInterestRate);
+    // Dispatch action to calculate early payments based on new loan amount
+    calculatePayments(loanAmount, newInterestRate, loanTerm, partPayment, loanStartDate, partPaymentInstallment);
   };
 
   return (
@@ -37,4 +40,19 @@ const InterestRateSelector = () => {
   );
 };
 
-export default InterestRateSelector;
+const mapStateToProps = (state) => ({
+  loanAmount: state.loanAmountProvider.loanAmount,
+  interestRate: state.interestRateProvider.interestRate,
+  loanTerm: state.loanTermProvider.loanTerm,
+  partPayment: state.partPaymentProvider.partPayment,
+  loanStartDate: state.loanStartDateProvider.loanStartDate,
+  partPaymentInstallment: state.partPaymentInstallmentProvider.partPaymentInstallment,
+  // map other state values...
+});
+
+const mapDispatchToProps = {
+  setInterestRate,
+  calculatePayments,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(InterestRateSelector);

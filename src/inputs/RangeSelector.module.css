@@ -22,8 +22,10 @@
 
 .input input[type="text"] {
   text-align: right;
+  font-weight: bold;
 }
 
 .holder input {
   align-items: center;
+  font-weight: bold;
 }

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Form } from "react-bootstrap";
 import RangeHandler from "./RangeHandler";
 import styles from "./RangeSelector.module.css"; // Import the CSS module
+import { connect } from "react-redux";
+import { setLoanTerm, calculatePayments } from "../actions";
 
-const LoanTermSelector = () => {
-  const [loanTerm, setLoanTerm] = useState(5);
-
+const LoanTermSelector = ({ loanTerm, setLoanTerm, calculatePayments, loanAmount, interestRate, partPayment, loanStartDate, partPaymentInstallment }) => {
   useEffect(() => {
     RangeHandler.initRangeHandler(
       "loan_term",
@@ -17,10 +17,14 @@ const LoanTermSelector = () => {
       (value) => value,
       setLoanTerm
     );
-  }, []); // Empty dependency array to run this effect only once after initial render
+  }, [setLoanTerm]); // Empty dependency array to run this effect only once after initial render
 
   const handleLoanTermChange = (event) => {
-    setLoanTerm(event.target.value);
+    const newLoanTerm = event.target.value;
+    setLoanTerm(newLoanTerm);
+    console.log(newLoanTerm);
+    // Dispatch action to calculate early payments based on new loan amount
+    calculatePayments(loanAmount, interestRate, newLoanTerm, partPayment, loanStartDate, partPaymentInstallment);
   };
 
   return (
@@ -37,4 +41,18 @@ const LoanTermSelector = () => {
   );
 };
 
-export default LoanTermSelector;
+const mapStateToProps = (state) => ({
+  loanAmount: state.loanAmountProvider.loanAmount,
+  interestRate: state.interestRateProvider.interestRate,
+  loanTerm: state.loanTermProvider.loanTerm,
+  partPayment: state.partPaymentProvider.partPayment,
+  loanStartDate: state.loanStartDateProvider.loanStartDate,
+  partPaymentInstallment: state.partPaymentInstallmentProvider.partPaymentInstallment,
+});
+
+const mapDispatchToProps = {
+  setLoanTerm,
+  calculatePayments,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoanTermSelector);

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import RangeHandler from "./RangeHandler";
 import styles from "./RangeSelector.module.css"; // Import the CSS module
+import { connect } from "react-redux";
+import { setLoanAmount, calculatePayments } from "../actions";
 
-const LoanAmountSelector = () => {
-  const [loanAmount, setLoanAmount] = useState(50000);
-
+const LoanAmountSelector = ({ loanAmount, setLoanAmount, calculatePayments, interestRate, loanTerm, partPayment, loanStartDate, partPaymentInstallment }) => {
   useEffect(() => {
     RangeHandler.initRangeHandler(
       "loan_amount",
@@ -17,10 +17,15 @@ const LoanAmountSelector = () => {
       (value) => value,
       setLoanAmount
     );
-  }, []); // Empty dependency array to run this effect only once after initial render
+  }, [setLoanAmount]);
 
   const handleLoanAmountChange = (event) => {
-    setLoanAmount(event.target.value);
+    const newLoanAmount = event.target.value;
+    console.log(newLoanAmount);
+    setLoanAmount(newLoanAmount);
+    // Dispatch action to calculate early payments based on new loan amount
+    calculatePayments(newLoanAmount, interestRate, loanTerm, partPayment, loanStartDate, partPaymentInstallment);
+    // calculatePayments();
   };
 
   return (
@@ -40,4 +45,18 @@ const LoanAmountSelector = () => {
   );
 };
 
-export default LoanAmountSelector;
+const mapStateToProps = (state) => ({
+  loanAmount: state.loanAmountProvider.loanAmount,
+  interestRate: state.interestRateProvider.interestRate,
+  loanTerm: state.loanTermProvider.loanTerm,
+  partPayment: state.partPaymentProvider.partPayment,
+  loanStartDate: state.loanStartDateProvider.loanStartDate,
+  partPaymentInstallment: state.partPaymentInstallmentProvider.partPaymentInstallment,
+});
+
+const mapDispatchToProps = {
+  setLoanAmount,
+  calculatePayments,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoanAmountSelector);

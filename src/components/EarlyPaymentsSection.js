@@ -1,28 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 
-const EarlyPaymentsSection = () => {
-  const [prepayments, setPrepayments] = useState("$0");
-  const [interestPayable, setInterestPayable] = useState("$0");
-  const [completedInstallments, setCompletedInstallments] = useState("0");
-  const [accumulatedSavings, setAccumulatedSavings] = useState("$0");
-  const [monthlyInstallment, setMonthlyInstallment] = useState("$0");
-  const [totalRepayments, setTotalRepayments] = useState("$0");
+const EarlyPaymentsSection = ({
+  uiData,
+  // Add other relevant state values here if needed
+}) => {
+  // const [prepayments, setPrepayments] = useState("$0");
+  // const [interestPayable, setInterestPayable] = useState("$0");
+  // const [numberOfInstallments, setNumberOfInstallments] = useState("0");
+  // const [accumulatedSavings, setAccumulatedSavings] = useState("$0");
+  // const [monthlyInstallment, setMonthlyInstallment] = useState("$0");
+  // const [totalRepayments, setTotalRepayments] = useState("$0");
 
-  // Use useEffect to set default values on component mount
+  // Destructure values from uiData
+  const { prepayments, interestPayable, numberOfInstallments, accumulatedSavings, monthlyInstallment, totalRepayments } = uiData;
+
+  // Use useEffect to update the component state when uiData changes
   useEffect(() => {
-    // Function to set default values
-    const setDefaultValues = () => {
-      setPrepayments("$50,000");
-      setInterestPayable("$2,500");
-      setCompletedInstallments("20");
-      setAccumulatedSavings("$1,000");
-      setMonthlyInstallment("$500");
-      setTotalRepayments("$15,000");
-    };
-
-    // Call the function to set default values
-    setDefaultValues();
-  }, []); // Empty dependency array ensures this effect runs once on component mount
+    // Update component state with new values from Redux state
+    // Here, you'll set the state using the Redux store values
+    // setPrepayments(prepayments);
+    // setInterestPayable(interestPayable);
+    // setNumberOfInstallments(numberOfInstallments);
+    // setAccumulatedSavings(accumulatedSavings);
+    // setMonthlyInstallment(monthlyInstallment);
+    // setTotalRepayments(totalRepayments);
+  }, [uiData]);
 
   return (
     <section id="early_payments_section">
@@ -68,7 +71,7 @@ const EarlyPaymentsSection = () => {
               </div>
               <div className="card-body">
                 <h4 className="card-subtitle mb-2 text-success">
-                  <span id="actual_installments_made">{completedInstallments}</span>
+                  <span id="actual_installments_made">{numberOfInstallments}</span>
                 </h4>
               </div>
             </div>
@@ -124,4 +127,11 @@ const EarlyPaymentsSection = () => {
   );
 };
 
-export default EarlyPaymentsSection;
+// Map the Redux state to component props
+const mapStateToProps = (state) => ({
+  uiData: state.calculateProvider.uiData,
+  // Map other relevant state values here if needed
+});
+
+// Connect your component to the Redux store
+export default connect(mapStateToProps)(EarlyPaymentsSection);
