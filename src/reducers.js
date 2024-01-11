@@ -26,8 +26,17 @@ const initialState = {
     accumulatedSavings: 0,
     monthlyInstallment: 0,
     totalRepayments: 0,
+    interestPayableInPlain: 0,
   },
-  chartData: {},
+  chartData: {
+    interestPayable: 0,
+    loanAmount: 0,
+    interval: [],
+    interest: [],
+    principal: [],
+    remainingLoan: [],
+    compiledData: [],
+  },
 };
 
 calculateLoanSchedule(initialState);

@@ -182,7 +182,6 @@ export const calculateLoanSchedule = (currentState) => {
     interest: interest,
     principal: principal,
     remainingLoan: remainingLoan,
-    compiledData: groupedDataByYear,
   };
 
   console.log(currentState);
