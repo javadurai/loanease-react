@@ -2,15 +2,13 @@
 
 import { calculateLoanSchedule } from "./handlers/PaymentCalculator";
 
-const getCurrentMonthFirstDate = () => {
+export const getCurrentMonthFirstDate = () => {
   const currentDate = new Date();
-  const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth();
 
   // Set the date to the first day of the month
-  const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+  currentDate.setDate(1);
 
-  return firstDayOfMonth;
+  return currentDate;
 };
 
 const initialState = {
@@ -37,7 +35,6 @@ calculateLoanSchedule(initialState);
 export const loanAmountReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_LOAN_AMOUNT":
-      console.log(state);
       return {
         ...state,
         loanAmount: action.payload,
@@ -83,7 +80,7 @@ export const loanTermReducer = (state = initialState, action) => {
   }
 };
 
-export const loanStartDateReducer = (state = initialState.loanStartDate, action) => {
+export const loanStartDateReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_LOAN_START_DATE":
       return {
@@ -95,7 +92,7 @@ export const loanStartDateReducer = (state = initialState.loanStartDate, action)
   }
 };
 
-export const partPaymentInstallmentReducer = (state = initialState.partPaymentInstallment, action) => {
+export const partPaymentInstallmentReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_PART_PAYMENT_INSTALLMENT":
       return {
@@ -118,7 +115,7 @@ export const calculatePaymentsReducer = (state = initialState, action) => {
         loanTerm: action.payload.loanTerm,
         partPayment: action.payload.partPayment,
         loanStartDate: action.payload.loanStartDate,
-        newPartPaymentInstallment: action.payload.newPartPaymentInstallment,
+        partPaymentInstallment: action.payload.partPaymentInstallment,
       };
 
       calculateLoanSchedule(newState);

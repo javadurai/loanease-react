@@ -2,11 +2,12 @@ import React from "react";
 import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import { connect } from "react-redux";
 import { setPartPayment, calculatePayments } from "../actions";
+import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const PartPaymentSelector = ({ partPayment, setPartPayment, calculatePayments, interestRate, loanTerm, loanAmount, loanStartDate, partPaymentInstallment }) => {
   const handlePartPaymentChange = (event) => {
     const newPartPayment = event.target.value;
-    console.log(newPartPayment);
     setPartPayment(newPartPayment);
     // Dispatch action to calculate early payments based on new loan amount
     calculatePayments(loanAmount, interestRate, loanTerm, newPartPayment, loanStartDate, partPaymentInstallment);
@@ -15,7 +16,7 @@ const PartPaymentSelector = ({ partPayment, setPartPayment, calculatePayments, i
   return (
     <div>
       <h6 className="card-title m-2">
-        <i className="fas fa-check-square"></i> Part Payments
+        <FontAwesomeIcon icon={faCheckSquare} /> Part Payments
       </h6>
       <ToggleButtonGroup type="radio" name="part_payments" value={partPayment} onChange={handlePartPaymentChange}>
         <ToggleButton value={"off"} variant="secondary">

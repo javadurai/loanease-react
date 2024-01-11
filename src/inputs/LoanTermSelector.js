@@ -4,6 +4,8 @@ import RangeHandler from "./RangeHandler";
 import styles from "./RangeSelector.module.css"; // Import the CSS module
 import { connect } from "react-redux";
 import { setLoanTerm, calculatePayments } from "../actions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDonate } from "@fortawesome/free-solid-svg-icons";
 
 const LoanTermSelector = ({ loanTerm, setLoanTerm, calculatePayments, loanAmount, interestRate, partPayment, loanStartDate, partPaymentInstallment }) => {
   useEffect(() => {
@@ -30,7 +32,7 @@ const LoanTermSelector = ({ loanTerm, setLoanTerm, calculatePayments, loanAmount
   return (
     <div className={`${styles.holder}`}>
       <h6 className="card-title m-2">
-        <i className="fas fa-wallet"></i> Loan Term (Years)
+        <FontAwesomeIcon icon={faDonate} /> Loan Term (Years)
       </h6>
       <div className="d-flex justify-content-center align-items-center">
         <Form.Control id="loan_term" type="text" className={`${styles.input}`} value={loanTerm} onChange={handleLoanTermChange} />

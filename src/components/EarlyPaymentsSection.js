@@ -1,3 +1,5 @@
+import { faCheckCircle, faCoins, faCreditCard, faHandHoldingDollar, faPercent, faWallet } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
@@ -35,7 +37,9 @@ const EarlyPaymentsSection = ({
             <div className="card border-secondary">
               <div className="card-header bg-secondary text-white">
                 <h6 className="m-2">
-                  <i className="fas fa-hand-holding-usd text-white"></i> Total <br />
+                  <FontAwesomeIcon icon={faHandHoldingDollar} className="text-white" />
+                  &nbsp;Total
+                  <br />
                   Prepayments
                 </h6>
               </div>
@@ -50,7 +54,9 @@ const EarlyPaymentsSection = ({
             <div className="card border-dark-subtle">
               <div className="card-header bg-dark-subtle text-dark">
                 <h6 className="m-2">
-                  <i className="fas fa-percent text-dark"></i> Interest <br />
+                  <FontAwesomeIcon icon={faPercent} className="text-dark" />
+                  &nbsp;Interest
+                  <br />
                   Payable
                 </h6>
               </div>
@@ -65,7 +71,9 @@ const EarlyPaymentsSection = ({
             <div className="card border-success">
               <div className="card-header bg-success text-white">
                 <h6 className="m-2">
-                  <i className="fas fa-check-circle text-white"></i> Number of <br />
+                  <FontAwesomeIcon icon={faCheckCircle} className="text-white" />
+                  &nbsp;Number of
+                  <br />
                   Installments
                 </h6>
               </div>
@@ -80,7 +88,9 @@ const EarlyPaymentsSection = ({
             <div className="card border-info">
               <div className="card-header bg-info text-dark">
                 <h6 className="m-2">
-                  <i className="fas fa-coins text-dark"></i> Savings <br />
+                  <FontAwesomeIcon icon={faCoins} className="text-dark" />
+                  &nbsp;Savings
+                  <br />
                   Accumulated
                 </h6>
               </div>
@@ -95,7 +105,9 @@ const EarlyPaymentsSection = ({
             <div className="card border-danger">
               <div className="card-header bg-danger text-white">
                 <h6 className="m-2">
-                  <i className="fas fa-wallet text-white"></i> Monthly <br />
+                  <FontAwesomeIcon icon={faWallet} className="text-white" />
+                  &nbsp;Monthly
+                  <br />
                   Installment
                 </h6>
               </div>
@@ -110,7 +122,9 @@ const EarlyPaymentsSection = ({
             <div className="card border-primary">
               <div className="card-header bg-primary text-white">
                 <h6 className="m-2">
-                  <i className="fas fa-credit-card text-white"></i> Total <br />
+                  <FontAwesomeIcon icon={faCreditCard} className="text-white" />
+                  &nbsp;Total
+                  <br />
                   Repayments
                 </h6>
               </div>

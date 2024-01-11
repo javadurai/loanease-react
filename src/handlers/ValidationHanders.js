@@ -15,12 +15,14 @@ export const toNumber = (inputValue) => {
 
 // Function to format a number as a currency value in USD
 export const formatToAmount = (number) => {
-  return Number(number).toLocaleString("en-US", {
+  const formattedAmount = new Intl.NumberFormat(undefined, {
     style: "currency",
     currency: "USD",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  });
+  }).format(number);
+
+  return formattedAmount;
 };
 
 // Function to format a number as a percentage value with 2 decimal places

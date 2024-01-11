@@ -4,6 +4,8 @@ import RangeHandler from "./RangeHandler";
 import styles from "./RangeSelector.module.css"; // Import the CSS module
 import { connect } from "react-redux";
 import { setInterestRate, calculatePayments } from "../actions";
+import { faListOl } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const InterestRateSelector = ({ interestRate, setInterestRate, calculatePayments, loanAmount, loanTerm, partPayment, loanStartDate, partPaymentInstallment }) => {
   useEffect(() => {
@@ -29,7 +31,7 @@ const InterestRateSelector = ({ interestRate, setInterestRate, calculatePayments
   return (
     <div className={`${styles.holder}`}>
       <h6 className="card-title m-2">
-        <i className="fas fa-wallet"></i> Annual Interest Rate
+        <FontAwesomeIcon icon={faListOl} /> Annual Interest Rate
       </h6>
       <div className="d-flex justify-content-center align-items-center">
         <Form.Control id="interest_rate" type="text" className={`${styles.input}`} value={interestRate} onChange={handleInterestRateChange} />

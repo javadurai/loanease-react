@@ -10,7 +10,7 @@ const MonthPicker = ({ selected, onChange }) => {
     onChange(date);
   };
 
-  return <DatePicker selected={startDate} onChange={handleChange} dateFormat="MMM-yyyy" showMonthYearPicker className="form-control" />;
+  return <DatePicker showIcon selected={startDate} onChange={handleChange} dateFormat="MMM yyyy" showMonthYearPicker className="form-control" />;
 };
 
 export default MonthPicker;

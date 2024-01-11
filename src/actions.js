@@ -28,7 +28,7 @@ export const setLoanTerm = (loanTerm) => ({
   payload: loanTerm,
 });
 
-export const calculatePayments = (loanAmount, interestRate, loanTerm, partPayment, loanStartDate, newPartPaymentInstallment) => ({
+export const calculatePayments = (loanAmount, interestRate, loanTerm, partPayment, loanStartDate, partPaymentInstallment) => ({
   type: "CALCULATE_PAYMENTS",
-  payload: { loanAmount, interestRate, loanTerm, partPayment, loanStartDate, newPartPaymentInstallment },
+  payload: { loanAmount, interestRate, loanTerm, partPayment, loanStartDate, partPaymentInstallment },
 });

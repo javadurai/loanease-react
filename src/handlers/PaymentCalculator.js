@@ -25,12 +25,15 @@ const LOCALE_LANG = navigator.language;
  *       To change the locale or currency, modify the 'toAmount' helper function inside this function.
  */
 export const calculateLoanSchedule = (currentState) => {
-  let loanAmount = currentState.loanAmount;
-  let interestRate = currentState.interestRate;
+  let loanAmount = parseInt(currentState.loanAmount);
+  let interestRate = parseFloat(currentState.interestRate);
   let months = currentState.loanTerm * 12;
   let partPaymentFrequency = currentState.partPayment;
-  let partPayment = currentState.newPartPaymentInstallment;
+  let partPayment = parseInt(currentState.partPaymentInstallment);
   let startDate = currentState.loanStartDate;
+
+  console.log(currentState);
+
   const customPartPaymentSchedule = [];
   // calculate the monthly interest rate
   const monthlyInterestRate = interestRate / (12 * 100);
@@ -47,7 +50,7 @@ export const calculateLoanSchedule = (currentState) => {
   // the date of the first installment
   let installmentDate = new Date(startDate);
 
-  let totalPaymentToBePaid = 0;
+  //let totalPaymentToBePaid = 0;
 
   // array to hold the schedule
   let schedule = [];
@@ -63,7 +66,7 @@ export const calculateLoanSchedule = (currentState) => {
     // initialize part payment made in the current month
     let partPaymentMade = 0;
 
-    totalPaymentToBePaid += monthlyPayment;
+    //totalPaymentToBePaid += monthlyPayment;
 
     // check the part payment frequency
     if (partPaymentFrequency !== "off") {
@@ -143,7 +146,3 @@ export const calculateLoanSchedule = (currentState) => {
 
   console.log(currentState);
 };
-
-function toAmount(amount) {
-  return new Intl.NumberFormat(LOCALE_LANG, { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(amount);
-}

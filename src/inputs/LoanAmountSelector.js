@@ -4,6 +4,9 @@ import RangeHandler from "./RangeHandler";
 import styles from "./RangeSelector.module.css"; // Import the CSS module
 import { connect } from "react-redux";
 import { setLoanAmount, calculatePayments } from "../actions";
+import { toNumber } from "../handlers/ValidationHanders";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWallet } from "@fortawesome/free-solid-svg-icons";
 
 const LoanAmountSelector = ({ loanAmount, setLoanAmount, calculatePayments, interestRate, loanTerm, partPayment, loanStartDate, partPaymentInstallment }) => {
   useEffect(() => {
@@ -17,12 +20,11 @@ const LoanAmountSelector = ({ loanAmount, setLoanAmount, calculatePayments, inte
       (value) => value,
       setLoanAmount
     );
-  }, [setLoanAmount]);
+  }, [setLoanAmount, calculatePayments]);
 
   const handleLoanAmountChange = (event) => {
     const newLoanAmount = event.target.value;
-    console.log(newLoanAmount);
-    setLoanAmount(newLoanAmount);
+    setLoanAmount(toNumber(newLoanAmount));
     // Dispatch action to calculate early payments based on new loan amount
     calculatePayments(newLoanAmount, interestRate, loanTerm, partPayment, loanStartDate, partPaymentInstallment);
     // calculatePayments();
@@ -31,11 +33,11 @@ const LoanAmountSelector = ({ loanAmount, setLoanAmount, calculatePayments, inte
   return (
     <div className={`${styles.holder}`}>
       <h6 className="card-title m-2">
-        <i className="fas fa-wallet"></i> Principal Loan Amount
+        <FontAwesomeIcon icon={faWallet} /> Principal Loan Amount
       </h6>
       <div className="d-flex justify-content-center align-items-center">
         <InputGroup id="loan_amount_group" className={`${styles.input}`}>
-          <InputGroup.Text>$</InputGroup.Text>
+          <InputGroup.Text className={`${styles.group}`}>$</InputGroup.Text>
           <Form.Control id="loan_amount" type="text" value={loanAmount} onChange={handleLoanAmountChange} />
         </InputGroup>
       </div>

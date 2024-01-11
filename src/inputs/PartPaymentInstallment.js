@@ -3,6 +3,8 @@ import { Form, InputGroup } from "react-bootstrap";
 import styles from "./RangeSelector.module.css"; // Import the CSS module
 import { connect } from "react-redux";
 import { setPartPaymentInstallment, calculatePayments } from "../actions";
+import { faCoins } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const PartPaymentInstallment = ({ partPaymentInstallment, setPartPaymentInstallment, calculatePayments, interestRate, loanTerm, partPayment, loanAmount, loanStartDate }) => {
   const handlePartPaymentInstallmentChange = (event) => {
@@ -15,11 +17,11 @@ const PartPaymentInstallment = ({ partPaymentInstallment, setPartPaymentInstallm
   return (
     <div className={`${styles.holder}`}>
       <h6 className="card-title m-2">
-        <i className="fas fa-coins"></i> Part Payment Per Installment
+        <FontAwesomeIcon icon={faCoins} /> Part Payment Per Installment
       </h6>
       <div className="d-flex justify-content-center align-items-center">
         <InputGroup id="part_payment_installment_group" className={`${styles.input}`}>
-          <InputGroup.Text>$</InputGroup.Text>
+          <InputGroup.Text className={`${styles.group}`}>$</InputGroup.Text>
           <Form.Control id="part_payment_installment" type="text" value={partPaymentInstallment} onChange={handlePartPaymentInstallmentChange} />
         </InputGroup>
       </div>
